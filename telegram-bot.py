@@ -18,7 +18,7 @@ EUR = page.find('span', 'cursor-pointer')
 # print(EUR)
 # print(EUR.name)
 print(EUR.text)
-bot = telebot.TeleBot('7391932945:AAHSlgY84Ef0JFCL5tEm_pJrkoPDMf5WhL4')
+bot = telebot.TeleBot('<your_token_here>')
 
 
 @bot.message_handler(content_types=['text'])
