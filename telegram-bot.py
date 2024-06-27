@@ -1,10 +1,12 @@
 import telebot
+from telebot import types
+import json
 import requests
 import bs4
 
 response = requests.get('https://bankiros.ru/currency/cbrf')
-print(type(response))
-print(response.status_code)
+# print(type(response))
+# print(response.status_code)
 # print(response.text)
 # print(response.content)
 page = bs4.BeautifulSoup(response.content, 'html5lib')
@@ -16,17 +18,16 @@ EUR = page.find('span', 'cursor-pointer')
 # print(EUR)
 # print(EUR.name)
 print(EUR.text)
-bot = telebot.TeleBot('7391932945:AAHKgn91YdaJPguX0-KZpdHMqejL_Ae3uSI')
+bot = telebot.TeleBot('7391932945:AAHSlgY84Ef0JFCL5tEm_pJrkoPDMf5WhL4')
 
 
 @bot.message_handler(content_types=['text'])
 def start(message):
-    if message.text == '/start':
-        markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-        markup.row('€')
-        markup.row('$')
-        msg = bot.send_message(message.chat.id, 'Выберите валюту', replay_markup=markup)
-        bot.register_next_step_handler(msg, currency)
+    markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.row('€')
+    markup.row('$')
+    msg = bot.send_message(message.chat.id, 'Выберите валюту', reply_markup=markup)
+    bot.register_next_step_handler(msg, currency)
 
 
 def currency(message):
